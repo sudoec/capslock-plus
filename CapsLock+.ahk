@@ -219,7 +219,7 @@ f9::
 f10::
 f11::
 f12::
-space::
+;space::
 tab::
 enter::
 esc::
@@ -303,6 +303,13 @@ RAlt::
 try
     ; runFunc(keyset.caps_ralt)
     SetCapsLockState, % GetKeyState("CapsLock","T") ? "Off" : "On"
+Capslock2:=""
+return
+
+space::
+try
+    ; runFunc(keyset.caps_ralt)
+    Send, {BackSpace}
 Capslock2:=""
 return
 
