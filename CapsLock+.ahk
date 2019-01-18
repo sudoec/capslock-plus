@@ -82,7 +82,8 @@ KeyWait, Capslock
 CapsLock:="" ;Capslock最优先置空，来关闭 Capslock+ 功能的触发
 if CapsLock2
 {
-    SetCapsLockState, % GetKeyState("CapsLock","T") ? "Off" : "On"
+    ;SetCapsLockState, % GetKeyState("CapsLock","T") ? "Off" : "On"
+    Send, {BackSpace}
 }
 CapsLock2:=""
 
@@ -109,7 +110,27 @@ if (allowRunOnClipboardChange && !CapsLock && CLsets.global.allowClipboard != "0
 allowRunOnClipboardChange:=true
 return
 
-
+;---------------------------colemak-keys-set----------------------------
+e::f
+r::p
+t::g
+y::j
+u::l
+i::u
+o::y
+p::;
+s::r
+d::s
+f::t
+g::d
+j::n
+k::e
+l::i
+$;::o
+n::k
+=::[
+[::'
+'::=
 ;----------------------------keys-set-start-----------------------------
 #if CLsets.global.allowClipboard != "0"
 $^v::
@@ -203,7 +224,7 @@ tab::
 enter::
 esc::
 backspace::
-ralt::
+;ralt::
 try
     runFunc(keyset["caps_" . A_ThisHotkey])
 Capslock2:=""
@@ -278,11 +299,12 @@ try
 Capslock2:=""
 Return
 
-;  RAlt::
-;  try
-;      runFunc(keyset.caps_ralt)
-;  Capslock2:=""
-;  return
+RAlt::
+try
+    ; runFunc(keyset.caps_ralt)
+    SetCapsLockState, % GetKeyState("CapsLock","T") ? "Off" : "On"
+Capslock2:=""
+return
 
 
 
