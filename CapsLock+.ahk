@@ -66,7 +66,7 @@ Process Priority,,High
 start:
 
 ;-----------------START-----------------
-global ctrlZ, CapsLock2, CapsLock
+global ctrlZ, CapsLock2, CapsLock, CapsLockD
 
 Capslock::
 ;ctrlZ:     Capslock+Z undo / redo flag
@@ -83,7 +83,32 @@ CapsLock:="" ;Capslock最优先置空，来关闭 Capslock+ 功能的触发
 if CapsLock2
 {
     ;SetCapsLockState, % GetKeyState("CapsLock","T") ? "Off" : "On"
+    ; Send, {BackSpace}
+    ; while(!GetKeyState("CapsLock","P"))
+    ; while(GetKeyState("CapsLock","P"))
+    ; {
+    ;     Send, {BackSpace}
+    ; }
+
+    ; Send, {BackSpace}
+    ; CapsLockD:=1
+    ; SetTimer, setCapsLockD, -40
+    ; while(CapsLockD)
+    ; {
+    ;     while(GetKeyState("CapsLock","P"))
+    ;     {
+    ;         Send, {BackSpace}
+    ;         Sleep, 20
+    ;     }
+    ; }
+
     Send, {BackSpace}
+    Sleep 45
+    while(GetKeyState("CapsLock","P"))
+    {
+        Send, {BackSpace}
+        Sleep, 20
+    }
 }
 CapsLock2:=""
 
@@ -97,6 +122,10 @@ Return
 
 setCapsLock2:
 CapsLock2:=""
+return
+
+setCapsLockD:
+CapsLockD:=""
 return
 
 OnClipboardChange:  ; 剪贴板内容改变时将运行
