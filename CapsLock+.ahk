@@ -74,7 +74,7 @@ Capslock::
 ;Capslock2: 是否使用过 Capslock+ 功能标记，使用过会清除这个变量
 ctrlZ:=CapsLock2:=CapsLock:=1
 
-SetTimer, setCapsLock2, -300 ; 300ms 犹豫操作时间
+SetTimer, setCapsLock2, -180 ; 180ms 犹豫操作时间
 
 settimer, changeMouseSpeed, 50 ;暂时修改鼠标速度
 
@@ -102,8 +102,15 @@ if CapsLock2
     ;     }
     ; }
 
+    ;Send, {BackSpace}
+    ;sleep 10
+    ;delayedBackSpace()
+
     Send, {BackSpace}
-    Sleep 45
+}
+else
+{
+    sleep 100
     while(GetKeyState("CapsLock","P"))
     {
         Send, {BackSpace}
@@ -127,6 +134,36 @@ return
 setCapsLockD:
 CapsLockD:=""
 return
+
+delayedBackSpace()
+{
+    CapsLockD:=1
+    SetTimer, setCapsLockD, -50
+    while(CapsLockD)
+    {
+        counts:=0
+        while(GetKeyState("CapsLock","P"))
+        {
+            ;CapsLockD:=""
+            if(counts==0)
+            {
+                Send, {BackSpace}
+            }
+            if(counts>2)
+            {
+                CapsLockD:=""
+            }
+            if(counts>15)
+            {
+                Send, {BackSpace}
+                sleep 10
+            }
+            counts++
+            sleep 10
+        }
+    }
+    return
+}
 
 OnClipboardChange:  ; 剪贴板内容改变时将运行
 
