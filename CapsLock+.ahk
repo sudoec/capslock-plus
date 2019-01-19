@@ -177,6 +177,7 @@ allowRunOnClipboardChange:=true
 return
 
 ;---------------------------colemak-keys-set----------------------------
+^!p::suspend
 e::f
 r::p
 t::g
