@@ -1,4 +1,6 @@
-﻿if not A_IsAdmin ;running by administrator
+﻿;#InstallKeybdHook
+
+if not A_IsAdmin ;running by administrator
 {
    Run *RunAs "%A_ScriptFullPath%" 
    ExitApp
@@ -198,6 +200,14 @@ n::k
 =::[
 [::'
 '::=
+;#IfWinActive ahk_class Qt5QWindowIcon
+#IfWinActive ahk_exe VirtualBoxVM.exe
+LWin::
+ControlSend, , {LWin Down}, A
+while(GetKeyState("LWin","P"))
+{}
+ControlSend, , {LWin Up}, A
+return
 ;----------------------------keys-set-start-----------------------------
 #if CLsets.global.allowClipboard != "0"
 $^v::
