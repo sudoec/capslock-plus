@@ -68,7 +68,7 @@ Process Priority,,High
 start:
 
 ;-----------------START-----------------
-global ctrlZ, CapsLock2, CapsLock, CapsLockD
+global ctrlZ, CapsLock2, CapsLock, CapsLockD, HalfSleep
 
 Capslock::
 ;ctrlZ:     Capslock+Z undo / redo flag
@@ -112,8 +112,12 @@ if CapsLock2
 }
 else
 {
-    sleep 100
-    while(GetKeyState("CapsLock","P"))
+    ;sleep 200
+    HalfSleep:=1
+    settimer, setHalfSleep, 200
+    while(HalfSleep && CapsLock2)
+    {}
+    while(CapsLock2 && GetKeyState("CapsLock","P"))
     {
         Send, {BackSpace}
         Sleep, 20
@@ -135,6 +139,10 @@ return
 
 setCapsLockD:
 CapsLockD:=""
+return
+
+setHalfSleep:
+HalfSleep:=""
 return
 
 delayedBackSpace()
@@ -217,8 +225,6 @@ return
 #if
 
 #If CapsLock ;when capslock key press and hold
-
-LAlt::return
 
 <!WheelUp::
 try
@@ -383,10 +389,17 @@ try
 Capslock2:=""
 return
 
+LAlt::
+try
+    ; runFunc(keyset.caps_lalt)
+    Send, {BackSpace}
+Capslock2:=""
+return
+
 space::
 try
-    ; runFunc(keyset.caps_ralt)
-    Send, {BackSpace}
+    ; runFunc(keyset.caps_space)
+    Send, {Delete}
 Capslock2:=""
 return
 
