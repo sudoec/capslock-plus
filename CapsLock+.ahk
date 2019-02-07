@@ -113,15 +113,16 @@ if CapsLock2
 else
 {
     ;sleep 200
-    HalfSleep:=1
-    settimer, setHalfSleep, 200
-    while(HalfSleep && CapsLock2)
-    {}
-    while(CapsLock2 && GetKeyState("CapsLock","P"))
-    {
-        Send, {BackSpace}
-        Sleep, 20
-    }
+    ; CapsLock2:=1
+    ; HalfSleep:=1
+    ; settimer, setHalfSleep, 200
+    ; while(HalfSleep && CapsLock2)
+    ; {}
+    ; while(CapsLock2 && GetKeyState("CapsLock","P"))
+    ; {
+    ;     Send, {BackSpace}
+    ;     Sleep, 20
+    ; }
 }
 CapsLock2:=""
 
@@ -392,14 +393,28 @@ return
 LAlt::
 try
     ; runFunc(keyset.caps_lalt)
-    Send, {BackSpace}
+    Send, {Delete}
 Capslock2:=""
 return
 
 space::
 try
     ; runFunc(keyset.caps_space)
-    Send, {Delete}
+    Send, {BackSpace}
+    CapsLock2:=1
+    HalfSleep:=1
+    settimer, setHalfSleep, 200
+    while(GetKeyState("Space","P"))
+    {
+        if(HalfSleep)
+        {
+        }
+        else
+        {
+            Send, {BackSpace}
+            Sleep, 20
+        }
+    }
 Capslock2:=""
 return
 
